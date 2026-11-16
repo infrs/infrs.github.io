@@ -1,0 +1,72 @@
+# Body Atlas: Train & Nutrition
+
+> A free Android app with a 3D model of the human body. Tap a muscle to see what it does and the best exercises for it (1,200+ exercises with start and end pictures); tap an organ or bone to see the nutrients it relies on and the foods richest in them (USDA FoodData Central data, ranked per serving). It also makes weekly training plans and has a journal for workouts, cardio, food and water. No subscription, no account, works offline, data stays on the phone, 7 languages (English, Arabic, Spanish, Portuguese, French, German, Japanese). Made by one developer, infrs.
+
+- Google Play: https://play.google.com/store/apps/details?id=com.infrs.bodyatlas
+- Press kit: https://infrs.github.io/press.html
+- Privacy policy: https://infrs.github.io/privacy.html
+
+## Exercises by muscle
+
+- [All muscles](https://infrs.github.io/muscles/)
+- [Best chest exercises](https://infrs.github.io/muscles/chest.html)
+- [Best shoulders exercises](https://infrs.github.io/muscles/shoulders.html)
+- [Best biceps exercises](https://infrs.github.io/muscles/biceps.html)
+- [Best triceps exercises](https://infrs.github.io/muscles/triceps.html)
+- [Best forearms & hands exercises](https://infrs.github.io/muscles/forearms.html)
+- [Best abs exercises](https://infrs.github.io/muscles/abdominals.html)
+- [Best neck exercises](https://infrs.github.io/muscles/neck.html)
+- [Best traps exercises](https://infrs.github.io/muscles/traps.html)
+- [Best middle back exercises](https://infrs.github.io/muscles/middle-back.html)
+- [Best lats exercises](https://infrs.github.io/muscles/lats.html)
+- [Best lower back exercises](https://infrs.github.io/muscles/lower-back.html)
+- [Best glutes exercises](https://infrs.github.io/muscles/glutes.html)
+- [Best outer hips exercises](https://infrs.github.io/muscles/abductors.html)
+- [Best inner thighs exercises](https://infrs.github.io/muscles/adductors.html)
+- [Best quads exercises](https://infrs.github.io/muscles/quadriceps.html)
+- [Best hamstrings exercises](https://infrs.github.io/muscles/hamstrings.html)
+- [Best calves & shins exercises](https://infrs.github.io/muscles/calves.html)
+
+## Foods by nutrient
+
+- [All nutrients](https://infrs.github.io/nutrients/)
+- [Foods high in protein](https://infrs.github.io/nutrients/protein.html)
+- [Foods high in carbohydrates](https://infrs.github.io/nutrients/carbs.html)
+- [Foods high in fiber](https://infrs.github.io/nutrients/fiber.html)
+- [Foods high in fat](https://infrs.github.io/nutrients/fat.html)
+- [Foods high in starch](https://infrs.github.io/nutrients/starch.html)
+- [Foods high in soluble fiber](https://infrs.github.io/nutrients/soluble-fiber.html)
+- [Foods high in insoluble fiber](https://infrs.github.io/nutrients/insoluble-fiber.html)
+- [Foods high in vitamin A (all forms)](https://infrs.github.io/nutrients/vitamin-a.html)
+- [Foods high in vitamin B1 (thiamin)](https://infrs.github.io/nutrients/thiamin.html)
+- [Foods high in vitamin B2 (riboflavin)](https://infrs.github.io/nutrients/riboflavin.html)
+- [Foods high in vitamin B3 (niacin)](https://infrs.github.io/nutrients/niacin.html)
+- [Foods high in vitamin B5 (pantothenic acid)](https://infrs.github.io/nutrients/pantothenic-acid.html)
+- [Foods high in vitamin B7 (biotin)](https://infrs.github.io/nutrients/biotin.html)
+- [Foods high in vitamin B6 (pyridoxine)](https://infrs.github.io/nutrients/vitamin-b6.html)
+- [Foods high in vitamin B9 (folate)](https://infrs.github.io/nutrients/folate.html)
+- [Foods high in vitamin B12 (cobalamin)](https://infrs.github.io/nutrients/vitamin-b12.html)
+- [Foods high in vitamin C (ascorbic acid)](https://infrs.github.io/nutrients/vitamin-c.html)
+- [Foods high in vitamin D (calciferol)](https://infrs.github.io/nutrients/vitamin-d.html)
+- [Foods high in vitamin E (tocopherol)](https://infrs.github.io/nutrients/vitamin-e.html)
+- [Foods high in vitamin K (phylloquinone)](https://infrs.github.io/nutrients/vitamin-k.html)
+- [Foods high in choline](https://infrs.github.io/nutrients/choline.html)
+- [Foods high in calcium](https://infrs.github.io/nutrients/calcium.html)
+- [Foods high in phosphorus](https://infrs.github.io/nutrients/phosphorus.html)
+- [Foods high in magnesium](https://infrs.github.io/nutrients/magnesium.html)
+- [Foods high in potassium](https://infrs.github.io/nutrients/potassium.html)
+- [Foods high in chloride](https://infrs.github.io/nutrients/chloride.html)
+- [Foods high in iron](https://infrs.github.io/nutrients/iron.html)
+- [Foods high in zinc](https://infrs.github.io/nutrients/zinc.html)
+- [Foods high in copper](https://infrs.github.io/nutrients/copper.html)
+- [Foods high in manganese](https://infrs.github.io/nutrients/manganese.html)
+- [Foods high in selenium](https://infrs.github.io/nutrients/selenium.html)
+- [Foods high in iodine](https://infrs.github.io/nutrients/iodine.html)
+- [Foods high in fluoride](https://infrs.github.io/nutrients/fluoride.html)
+- [Foods high in chromium](https://infrs.github.io/nutrients/chromium.html)
+- [Foods high in lycopene](https://infrs.github.io/nutrients/lycopene.html)
+- [Foods high in monounsaturated fat](https://infrs.github.io/nutrients/monounsaturated-fat.html)
+- [Foods high in polyunsaturated fat](https://infrs.github.io/nutrients/polyunsaturated-fat.html)
+- [Foods high in omega-3 ALA (alpha-linolenic acid)](https://infrs.github.io/nutrients/omega-3-ala.html)
+- [Foods high in omega-3 EPA + DHA](https://infrs.github.io/nutrients/omega-3-epa-dha.html)
+- [Foods high in omega-6 (linoleic acid)](https://infrs.github.io/nutrients/omega-6.html)

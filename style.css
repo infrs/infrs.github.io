@@ -281,3 +281,140 @@ a.badge {
     margin-bottom: 10px;
   }
 }
+
+/* Muscle and nutrient pages */
+
+.crumbs {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.crumbs a {
+  color: var(--muted);
+}
+
+.cta {
+  margin: 2.4em 0;
+  padding: 20px;
+  background: var(--soft);
+  border-radius: 14px;
+}
+
+.cta p {
+  margin-bottom: 14px;
+}
+
+.exercises {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+  counter-reset: ex;
+}
+
+.exercises li {
+  counter-increment: ex;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.exercises li > div:last-child::before {
+  content: counter(ex) ".";
+  color: var(--muted);
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+.exercises strong {
+  display: inline;
+}
+
+.exercises .meta {
+  display: block;
+  margin-top: 2px;
+}
+
+.pics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: #f6f4ef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pics img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+}
+
+.links li {
+  margin: 0 0 10px;
+}
+
+.links .meta {
+  display: block;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1em;
+}
+
+table.foods {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.foods th,
+.foods td {
+  text-align: left;
+  padding: 8px 10px 8px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.foods th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.foods td:first-child {
+  color: var(--muted);
+}
+
+.foods td:nth-child(n + 4),
+.foods th:nth-child(n + 4) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+footer p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 520px) {
+  .exercises li {
+    grid-template-columns: 1fr;
+  }
+
+  .foods td:nth-child(3),
+  .foods th:nth-child(3) {
+    display: none;
+  }
+}

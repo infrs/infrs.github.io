@@ -1,21 +1,102 @@
-:root {
-  --bg: #ffffff;
-  --text: #16181d;
-  --muted: #5d6470;
-  --line: #e4e6ea;
-  --accent: #16181d;
-  --soft: #f4f5f7;
+/*
+ * Body Atlas website: the app's "working atlas plate" look (DESIGN.md in the app repo).
+ * Plate paper and ink, the atlas colour code (crimson = exercise, green = food, sepia = the rest),
+ * Source Serif 4 for names, Jost for running text and controls, matte 8/10px corners, hairlines.
+ * Fonts are served from this site (SIL Open Font License), no third-party requests.
+ */
+
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/source-serif-4.woff2) format("woff2");
 }
 
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/source-serif-4-italic.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/jost.woff2) format("woff2");
+}
+
+:root {
+  --paper: #ffffff;
+  --paper-mid: #fdfbf6;
+  --paper-end: #f7f2e8;
+  --pressed: #f2f1ec;
+  --line: #e3e1da;
+  --ink: #1a1a18;
+  --muted: #5e5d57;
+  --hatch: rgba(107, 78, 31, 0.05);
+
+  /* Section fields (white text on them) and section inks (coloured text on paper). */
+  --shell-ink: #1a1a18;
+  --shell-exercise: #9e1b32;
+  --shell-food: #1f6b45;
+  --shell-sepia: #6b4e1f;
+  --exercise: #9e1b32;
+  --food: #1f6b45;
+  --exercise-wash: #f6e7ea;
+  --food-wash: #e4f0e9;
+  --on-shell: #ffffff;
+  --on-shell-rule: rgba(255, 255, 255, 0.32);
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Jost", Futura, "Century Gothic", system-ui, sans-serif;
+
+  /* The page's own section; the body class picks it. */
+  --shell: var(--shell-ink);
+  --accent: var(--ink);
+  --wash: var(--pressed);
+
+  color-scheme: light;
+}
+
+/* The app's Dark look: graphite paper, the section colours lifted for text and darkened for fields. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1114;
-    --text: #eceef1;
-    --muted: #9aa1ac;
-    --line: #262a31;
-    --accent: #eceef1;
-    --soft: #181b20;
+    --paper: #181c21;
+    --paper-mid: #0f1215;
+    --paper-end: #0a0c0f;
+    --pressed: #20252b;
+    --line: #272d34;
+    --ink: #eef1f4;
+    --muted: #9aa4ae;
+    --hatch: rgba(255, 255, 255, 0.025);
+
+    --shell-ink: #2b2f35;
+    --shell-exercise: #b4513a;
+    --shell-food: #237a52;
+    --shell-sepia: #3f6f9e;
+    --exercise: #ff7448;
+    --food: #3cc985;
+    --exercise-wash: #3a2219;
+    --food-wash: #16302a;
+
+    color-scheme: dark;
   }
+}
+
+.sec-exercise {
+  --shell: var(--shell-exercise);
+  --accent: var(--exercise);
+  --wash: var(--exercise-wash);
+}
+
+.sec-food {
+  --shell: var(--shell-food);
+  --accent: var(--food);
+  --wash: var(--food-wash);
 }
 
 * {
@@ -28,62 +109,126 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  background-color: var(--paper-mid);
+  /* Plate paper with the faint engraver's hatch the app paints behind every screen. */
+  background-image:
+    repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-mid) 45%, var(--paper-end) 100%);
+  background-attachment: fixed;
+  font: 400 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 .wrap {
-  max-width: 680px;
+  width: 100%;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
+/* ---------------------------------------------------------------------------------------------
+ * Header bar: the page-edge tab. Every page but home wears its section's colour, white serif name.
+ */
+
 header.site {
-  border-bottom: 1px solid var(--line);
+  background: var(--shell);
+  color: var(--on-shell);
 }
 
 header.site .wrap {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding-top: 18px;
-  padding-bottom: 18px;
+  gap: 6px 20px;
+  min-height: 64px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .brand {
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--text);
+  font: 600 22px/1.2 var(--serif);
+  color: inherit;
   text-decoration: none;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+  margin-right: -10px;
 }
 
 nav a {
-  margin-left: 18px;
-  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: inherit;
+  opacity: 0.86;
   text-decoration: none;
-  font-size: 15px;
+  font: 500 15px/1.4 var(--sans);
+  letter-spacing: 0.1px;
 }
 
 nav a:hover {
-  color: var(--text);
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
 }
 
-main {
-  padding: 48px 0 72px;
+nav a[aria-current="page"] {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Home has no bar: paper with a hairline, like the app's home top bar. */
+.home header.site {
+  background: transparent;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.home nav a {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.home nav a:hover {
+  color: var(--ink);
+  background: var(--pressed);
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Type: names in serif, everything you press or count in Jost.
+ */
+
+main.wrap {
+  flex: 1;
+  padding: 36px 20px 72px;
 }
 
 h1 {
-  font-size: clamp(2rem, 6vw, 2.75rem);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  margin: 0 0 16px;
+  font: 400 clamp(2rem, 6.4vw, 2.6rem) / 1.2 var(--serif);
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  text-wrap: balance;
 }
 
 h2 {
-  font-size: 1.25rem;
-  letter-spacing: -0.01em;
-  margin: 2.4em 0 0.5em;
+  font: 400 1.6rem/1.25 var(--serif);
+  margin: 2.2em 0 0.45em;
+  text-wrap: balance;
+}
+
+h2 a {
+  text-decoration: none;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 p,
@@ -97,72 +242,108 @@ ul {
 }
 
 a {
-  color: var(--text);
+  color: inherit;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
+main p a,
+main li a {
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+main p a:hover,
+main li a:hover {
+  text-decoration-color: currentColor;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* The italic legend under a plate. */
 .lede {
-  font-size: 1.15rem;
+  font: italic 400 1.25rem/1.45 var(--serif);
   color: var(--muted);
   max-width: 34em;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
+}
+
+.lede strong {
+  font-style: normal;
+  color: var(--ink);
 }
 
 .meta {
   color: var(--muted);
   font-size: 15px;
+  line-height: 1.5;
+}
+
+.crumbs {
+  font: 500 14px/1.5 var(--sans);
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.crumbs a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.crumbs span[aria-hidden] {
+  margin: 0 4px;
+  opacity: 0.5;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Controls: matte 8px buttons, no pills, no gloss.
+ */
+
+.badge,
+.button-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font: 600 15px/1.2 var(--sans);
+  letter-spacing: 0.2px;
+  text-decoration: none;
 }
 
 .badge {
-  display: inline-block;
-  padding: 11px 20px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 600;
-  font-size: 15px;
+  background: var(--shell);
+  color: var(--on-shell);
 }
 
-.features {
-  list-style: none;
-  padding: 0;
-  margin: 40px 0 0;
-  display: grid;
-  gap: 12px;
+.badge::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent currentColor;
 }
 
-.features li {
-  margin: 0;
-  padding: 16px 18px;
-  background: var(--soft);
-  border-radius: 12px;
+.badge:hover {
+  filter: brightness(1.12);
 }
 
-.features strong {
-  display: block;
-  margin-bottom: 2px;
+.button-line {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
 }
 
-.note {
-  padding: 14px 18px;
-  background: var(--soft);
-  border-radius: 12px;
-  margin: 1.4em 0;
-}
-
-footer {
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 14px;
-}
-
-footer .wrap {
-  padding-top: 24px;
-  padding-bottom: 32px;
-}
-
-footer a {
-  color: var(--muted);
+.button-line:hover {
+  background: var(--pressed);
 }
 
 .actions {
@@ -172,38 +353,391 @@ footer a {
   align-items: center;
 }
 
-a.badge {
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Home: the masthead and the key to the app.
+ */
+
+.masthead h1 {
+  font: 600 clamp(2.75rem, 11vw, 3.5rem) / 1.12 var(--serif);
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* The title-page double rule: 2px over 1px. */
+.masthead h1::after {
+  content: "";
+  display: block;
+  height: 5px;
+  margin: 12px 0 16px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.masthead .lede {
+  margin-bottom: 8px;
+}
+
+.masthead .meta {
+  font: 600 14px/1.5 var(--sans);
+  letter-spacing: 0.2px;
+  margin-bottom: 24px;
+}
+
+.caption {
+  font: italic 400 17px/1.3 var(--serif);
+  color: var(--muted);
+  margin: 40px 0 10px;
+}
+
+.key {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+  counter-reset: key;
+}
+
+.key > li {
+  counter-increment: key;
+  position: relative;
+  margin: 0;
+  padding: 18px 20px 14px;
+  border-radius: 10px;
+  background: var(--shell);
+  color: var(--on-shell);
+}
+
+.key .k-exercise {
+  --shell: var(--shell-exercise);
+}
+
+.key .k-food {
+  --shell: var(--shell-food);
+}
+
+.key .k-sepia {
+  --shell: var(--shell-sepia);
+}
+
+.key h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 6px;
+  font: 600 1.5rem/1.25 var(--serif);
+}
+
+.key h3::before {
+  content: counter(key, upper-roman);
+  font: italic 400 1rem/1 var(--serif);
+  opacity: 0.75;
+  min-width: 1.4em;
+}
+
+.key p {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.key .k-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--on-shell-rule);
+  font: 600 14px/1.4 var(--sans);
+  letter-spacing: 0.2px;
+}
+
+.key a {
+  color: inherit;
   text-decoration: none;
 }
 
-.button-line {
-  display: inline-block;
-  padding: 10px 19px;
-  border-radius: 999px;
+/* The whole entry is the link when it has one. */
+.key a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+}
+
+.key li:has(a):hover {
+  filter: brightness(1.1);
+}
+
+.key .arrow {
+  font: 400 20px/1 var(--sans);
+}
+
+/* Older plain feature list, kept for any page that still uses it. */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
   border: 1px solid var(--line);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 15px;
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.features li {
+  margin: 0;
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.features li:first-child {
+  border-top: 0;
+}
+
+.features strong {
+  display: block;
+  font: 400 1.15rem/1.3 var(--serif);
+  margin-bottom: 2px;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Panels and lists: one bordered 10px group, hairline rules between rows, serif names.
+ */
+
+.note,
+.cta {
+  margin: 2.4em 0;
+  padding: 18px 20px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--shell);
+  border-radius: 10px;
+}
+
+.note {
+  border-top-width: 1px;
+  background: var(--wash);
+  border-color: transparent;
+}
+
+.cta p {
+  margin-bottom: 14px;
+}
+
+.cta strong {
+  display: block;
+  font: 600 1.3rem/1.3 var(--serif);
+  margin-bottom: 4px;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.links li {
+  position: relative;
+  margin: 0;
+  padding: 12px 44px 12px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.links li:first-child {
+  border-top: 0;
+}
+
+.links li:hover {
+  background: var(--pressed);
+}
+
+.links a {
+  font: 400 1.15rem/1.35 var(--serif);
   text-decoration: none;
 }
 
-.button-line:hover {
-  background: var(--soft);
+.links a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
+
+.links li::after {
+  content: "\203A";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-52%);
+  font: 400 24px/1 var(--sans);
+  color: var(--accent);
+}
+
+.links .meta {
+  display: block;
+  font-size: 14px;
+}
+
+/* Exercise list: start and end pictures, then the name. */
+.exercises {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+  counter-reset: ex;
+}
+
+.exercises li {
+  counter-increment: ex;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 18px;
+  align-items: center;
+  margin: 0;
+  padding: 12px 18px 12px 12px;
+  border-top: 1px solid var(--line);
+}
+
+.exercises li:first-child {
+  border-top: 0;
+}
+
+.exercises li > div:last-child::before {
+  content: counter(ex, upper-roman);
+  display: block;
+  font: italic 400 15px/1.2 var(--serif);
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.exercises strong {
+  display: block;
+  font: 400 1.2rem/1.3 var(--serif);
+}
+
+.exercises .meta {
+  display: block;
+  margin-top: 4px;
+  font: 600 13px/1.4 var(--sans);
+  letter-spacing: 0.2px;
+  color: var(--accent);
+}
+
+.pics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pics img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+}
+
+/* Food tables: serif food names, Jost figures, % DV in the section's ink. */
+.table-wrap {
+  overflow-x: auto;
+  margin: 0 0 1em;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+table.foods {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.foods th,
+.foods td {
+  text-align: left;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  vertical-align: baseline;
+}
+
+.foods thead th {
+  border-top: 0;
+  background: var(--pressed);
+  color: var(--muted);
+  font: 600 13px/1.3 var(--sans);
+  letter-spacing: 0.2px;
+}
+
+.foods td:first-child {
+  color: var(--muted);
+  font: italic 400 15px/1.3 var(--serif);
+  width: 2.2em;
+}
+
+.foods td:nth-child(2) {
+  font: 400 17px/1.3 var(--serif);
+}
+
+.foods td:nth-child(3) {
+  color: var(--muted);
+}
+
+.foods td:nth-child(n + 4),
+.foods th:nth-child(n + 4) {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.foods td:last-child {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Press kit.
+ */
 
 .facts {
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 8px 20px;
+  gap: 0;
   margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.facts dt,
+.facts dd {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
 }
 
 .facts dt {
+  font: italic 400 16px/1.5 var(--serif);
   color: var(--muted);
 }
 
-.facts dd {
-  margin: 0;
+.facts dt:first-of-type,
+.facts dd:first-of-type {
+  border-top: 0;
 }
 
 .videos,
@@ -230,14 +764,14 @@ a.badge {
   width: 100%;
   height: auto;
   aspect-ratio: 9 / 16;
-  border-radius: 12px;
-  background: var(--soft);
+  border-radius: 10px;
+  background: var(--pressed);
   border: 1px solid var(--line);
 }
 
 .videos figcaption {
   margin-top: 6px;
-  font-size: 15px;
+  font: italic 400 15px/1.4 var(--serif);
   color: var(--muted);
 }
 
@@ -250,7 +784,7 @@ a.badge {
 .logos img {
   display: block;
   height: auto;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .logos a:first-child img {
@@ -267,154 +801,708 @@ a.badge {
   width: 100%;
 }
 
-@media (max-width: 520px) {
-  .shots {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+/* ---------------------------------------------------------------------------------------------
+ * Footer: a double rule, then small print.
+ */
 
-  .facts {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .facts dd {
-    margin-bottom: 10px;
-  }
-}
-
-/* Muscle and nutrient pages */
-
-.crumbs {
+footer {
+  color: var(--muted);
   font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 18px;
+  line-height: 1.6;
 }
 
-.crumbs a {
-  color: var(--muted);
+footer .wrap {
+  padding-top: 20px;
+  padding-bottom: 32px;
+  border-top: 1px solid var(--line);
 }
 
-.cta {
-  margin: 2.4em 0;
-  padding: 20px;
-  background: var(--soft);
-  border-radius: 14px;
-}
-
-.cta p {
-  margin-bottom: 14px;
-}
-
-.exercises {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 12px;
-  counter-reset: ex;
-}
-
-.exercises li {
-  counter-increment: ex;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 16px;
-  align-items: center;
-  margin: 0;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-.exercises li > div:last-child::before {
-  content: counter(ex) ".";
-  color: var(--muted);
-  margin-right: 6px;
-  font-weight: 600;
-}
-
-.exercises strong {
-  display: inline;
-}
-
-.exercises .meta {
-  display: block;
-  margin-top: 2px;
-}
-
-.pics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  background: #f6f4ef;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.pics img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.links {
-  list-style: none;
-  padding: 0;
-}
-
-.links li {
-  margin: 0 0 10px;
-}
-
-.links .meta {
-  display: block;
-}
-
-.table-wrap {
-  overflow-x: auto;
-  margin: 0 0 1em;
-}
-
-table.foods {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-}
-
-.foods th,
-.foods td {
-  text-align: left;
-  padding: 8px 10px 8px 0;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-
-.foods th {
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.foods td:first-child {
+footer a {
   color: var(--muted);
 }
 
-.foods td:nth-child(n + 4),
-.foods th:nth-child(n + 4) {
-  text-align: right;
-  white-space: nowrap;
+footer a:hover {
+  color: var(--ink);
 }
 
 footer p {
   margin: 0 0 8px;
 }
 
-@media (max-width: 520px) {
+/* ---------------------------------------------------------------------------------------------
+ * Phones.
+ */
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+
+  main.wrap {
+    padding-top: 24px;
+  }
+
+  header.site .wrap {
+    min-height: 56px;
+  }
+
+  nav {
+    margin-left: -10px;
+  }
+
+  nav a {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .facts dd {
+    border-top: 0;
+    padding-top: 0;
+  }
+
   .exercises li {
     grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
   }
 
   .foods td:nth-child(3),
   .foods th:nth-child(3) {
     display: none;
+  }
+
+  .foods th,
+  .foods td {
+    padding: 9px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .badge,
+  .button-line,
+  nav a,
+  .links li,
+  .key > li {
+    transition: background-color 0.15s ease, filter 0.15s ease;
+  }
+}
+
+@media (max-width: 560px) {
+  .lede {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Home: the masthead names the page, so the top bar only carries the links. */
+  .home .brand {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Home plates: four framed plates, each a living figure, with a 4px head edge in its colour.
+ */
+
+:root {
+  --bone: #6b4e1f;
+  --bone-wash: #f3ece0;
+  --tile-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bone: #4f98e3;
+    --bone-wash: #182634;
+  }
+}
+
+.plates {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.plate {
+  margin: 0;
+  --edge: var(--shell-ink);
+}
+
+.plate.k-exercise {
+  --edge: var(--shell-exercise);
+}
+
+.plate.k-food {
+  --edge: var(--shell-food);
+}
+
+.plate.k-sepia {
+  --edge: var(--shell-sepia);
+}
+
+.plate > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--edge);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.plate > a:hover .plate-name {
+  background: var(--pressed);
+}
+
+.figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1.06;
+  max-height: 300px;
+  padding: 10%;
+}
+
+.plate-name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: auto;
+  padding: 9px 12px 11px;
+  border-top: 1px solid var(--line);
+  font: 600 18px/22px var(--serif);
+}
+
+.plate-name i {
+  font: italic 400 15px/22px var(--serif);
+  color: var(--muted);
+  min-width: 1.5em;
+}
+
+/* The engravings: a section-colour wash edged in its ink, hatching in ink, hairlines at any size. */
+.engraving,
+.journal {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.engraving path {
+  stroke-width: 1.2px;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.engraving .ex {
+  fill: var(--exercise-wash);
+  stroke: var(--exercise);
+}
+
+.engraving .food {
+  fill: var(--food-wash);
+  stroke: var(--food);
+}
+
+.engraving .tile {
+  fill: var(--shell-food);
+  stroke: var(--shell-food);
+}
+
+.engraving .hatch {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.engraving .symbol text {
+  fill: var(--tile-text);
+}
+
+.engraving .sym {
+  font: 600 24px/1 var(--serif);
+}
+
+.engraving .num {
+  font: 600 9px/1 var(--sans);
+}
+
+/* Plate IV: the daybook. */
+.journal .page {
+  fill: var(--paper);
+  stroke: var(--bone);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.journal .heading {
+  stroke: var(--bone);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.journal .heading.thick {
+  stroke-width: 2px;
+}
+
+.journal .day {
+  fill: none;
+  stroke: var(--bone);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+}
+
+.journal .day.worked {
+  fill: var(--bone-wash);
+}
+
+.journal .rule {
+  stroke: var(--bone);
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+}
+
+.journal .mark {
+  fill: var(--bone);
+}
+
+/* Plate I: the body's layers, each swept in from the head down over the one before. */
+.anatomy {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.anatomy img {
+  position: absolute;
+  left: 4%;
+  top: 4%;
+  width: 92%;
+  height: 96%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.anatomy .sweep {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  clip-path: inset(0 0 100% 0);
+}
+
+.sweep-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0;
+}
+
+.layer-name {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: italic 400 14px/17px var(--serif);
+  color: var(--muted);
+  opacity: 0;
+}
+
+.layer-name.l0 {
+  opacity: 1;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.dot.ex {
+  background: var(--exercise);
+}
+
+.dot.food {
+  background: var(--food);
+}
+
+.dot.bone {
+  background: var(--bone);
+}
+
+.float {
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 3 layers x 3.2 s; each change takes the last 0.9 s of its step, as the app's plate clock. */
+  .anatomy .s1 {
+    animation: sweep1 9.6s linear infinite;
+  }
+
+  .anatomy .s2 {
+    animation: sweep2 9.6s linear infinite;
+  }
+
+  .anatomy .s3 {
+    animation: sweep3 9.6s linear infinite;
+  }
+
+  .sweep-line {
+    animation: sweepline 9.6s linear infinite;
+  }
+
+  .layer-name.l0 {
+    animation: name0 9.6s linear infinite;
+  }
+
+  .layer-name.l1 {
+    animation: name1 9.6s linear infinite;
+  }
+
+  .layer-name.l2 {
+    animation: name2 9.6s linear infinite;
+  }
+
+  .float {
+    animation: float 6.4s ease-in-out infinite;
+  }
+
+  .plate:nth-child(even) .float {
+    animation-delay: -3.2s;
+  }
+
+  .journal .week {
+    animation: week 16s linear infinite;
+    animation-delay: calc(var(--w) * 3.2s - 16s);
+  }
+}
+
+@keyframes sweep1 {
+  0%, 23.96% { clip-path: inset(0 0 100% 0); }
+  33.33%, 100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes sweep2 {
+  0%, 57.29% { clip-path: inset(0 0 100% 0); }
+  66.67%, 100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes sweep3 {
+  0%, 90.62% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes sweepline {
+  0%, 23.96% { top: 0; opacity: 0; }
+  24.5%, 32.8% { opacity: 0.7; }
+  33.33% { top: 100%; opacity: 0; }
+  33.34%, 57.29% { top: 0; opacity: 0; }
+  57.8%, 66.1% { opacity: 0.7; }
+  66.67% { top: 100%; opacity: 0; }
+  66.68%, 90.62% { top: 0; opacity: 0; }
+  91.1%, 99.4% { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes name0 {
+  0%, 23.96% { opacity: 1; }
+  28%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes name1 {
+  0%, 28% { opacity: 0; }
+  33.33%, 57.29% { opacity: 1; }
+  61%, 100% { opacity: 0; }
+}
+
+@keyframes name2 {
+  0%, 61% { opacity: 0; }
+  66.67%, 90.62% { opacity: 1; }
+  95%, 100% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3%); }
+}
+
+/* The month fills in a week at a time, then starts again. */
+@keyframes week {
+  0% { opacity: 0; }
+  4%, 92% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.plates + .caption {
+  margin-top: 28px;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Muscle areas: the app's Exercises screen, a name and counts beside the area lit up on the body.
+ */
+
+.areas {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.areas li {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.areas li:first-child {
+  border-top: 0;
+}
+
+.areas a {
+  display: grid;
+  grid-template-columns: 1fr 44%;
+  align-items: center;
+  min-height: 124px;
+  padding: 0 0 0 20px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.areas a:hover {
+  background: var(--pressed);
+}
+
+.area-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 0;
+}
+
+.area-name {
+  font: 400 26px/1.2 var(--serif);
+  margin-bottom: 6px;
+}
+
+.area-stat {
+  font: 600 14px/1.35 var(--sans);
+  color: var(--exercise);
+}
+
+.area-sub {
+  font: 600 14px/1.35 var(--sans);
+  color: var(--muted);
+}
+
+.areas img {
+  display: block;
+  width: 100%;
+  height: 124px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+h3 {
+  font: 400 1.25rem/1.3 var(--serif);
+  margin: 1.4em 0 0.3em;
+}
+
+h3 a {
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Exercise page: the app's exercise screen.
+ */
+
+.headline {
+  font: 400 clamp(1.9rem, 6vw, 2.25rem) / 1.2 var(--serif);
+  margin-bottom: 20px;
+}
+
+.spec {
+  margin: 0 0 20px;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.spec div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+}
+
+.spec dt {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.spec dd {
+  margin: 0;
+  font: 600 15px/1.5 var(--sans);
+  text-align: right;
+}
+
+.poses {
+  margin: 0 0 8px;
+}
+
+.poses .pics {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.poses figcaption {
+  margin-top: 8px;
+  font: italic 400 15px/1.4 var(--serif);
+  color: var(--muted);
+}
+
+.headline ~ h2 {
+  margin-top: 1.5em;
+  font-size: 1.45rem;
+}
+
+.chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips li {
+  position: relative;
+  margin: 0;
+  padding: 7px 12px 8px;
+  border-radius: 8px;
+  background: var(--exercise-wash);
+}
+
+.chips li.plain {
+  background: var(--pressed);
+}
+
+.chips a {
+  font: 600 15px/1.35 var(--sans);
+  color: var(--exercise);
+  text-decoration: none;
+}
+
+.chips .plain a {
+  color: var(--ink);
+}
+
+.chips a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.chips li:hover {
+  filter: brightness(0.96);
+}
+
+.chips span {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: step;
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin: 0 0 14px;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--shell-exercise);
+  color: var(--on-shell);
+  font: 600 13px/1 var(--sans);
+}
+
+.exercises strong a {
+  text-decoration: none;
+}
+
+.exercises li:has(strong a) {
+  position: relative;
+}
+
+.exercises strong a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.exercises li:has(strong a):hover {
+  background: var(--pressed);
+}
+
+@media (max-width: 560px) {
+  .plates {
+    gap: 10px;
+  }
+
+  .plate-name {
+    font-size: 16px;
+    gap: 8px;
+    padding: 8px 10px 10px;
+  }
+
+  .area-name {
+    font-size: 24px;
+  }
+
+  .areas a {
+    grid-template-columns: 1fr 48%;
+    padding-left: 16px;
   }
 }

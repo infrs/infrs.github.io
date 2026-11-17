@@ -1506,3 +1506,23 @@ h3 a {
     padding-left: 16px;
   }
 }
+
+/* Exercises index: jump chips and group counts. */
+.jump {
+  margin-bottom: 8px;
+}
+
+.jump a {
+  font-size: 14px;
+}
+
+h2 .count {
+  font: 600 14px/1 var(--sans);
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+h2[id] {
+  scroll-margin-top: 16px;
+}

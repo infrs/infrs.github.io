@@ -1526,3 +1526,151 @@ h2 .count {
 h2[id] {
   scroll-margin-top: 16px;
 }
+
+/* ---------------------------------------------------------------------------------------------
+ * Food page: the app's food screen, a serving panel, then nutrient rows with Daily Value bars.
+ */
+
+.tags {
+  margin: -8px 0 14px;
+  font-weight: 500;
+}
+
+.serving-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 8px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--food-wash);
+}
+
+.serving-panel strong {
+  font-weight: 600;
+}
+
+.serving-panel span {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.food-chips li {
+  background: var(--food-wash);
+}
+
+.food-chips a {
+  color: var(--food);
+}
+
+.food-chips li.plain {
+  background: var(--pressed);
+}
+
+.food-chips .plain a {
+  color: var(--ink);
+}
+
+.ranks {
+  margin: 18px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--food);
+  font: italic 400 16px/1.5 var(--serif);
+  color: var(--muted);
+}
+
+.ranks a {
+  color: var(--ink);
+}
+
+.nutrition {
+  margin: 0 0 1em;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.nutrition .row {
+  display: grid;
+  grid-template-columns: 1fr auto 3.4em;
+  column-gap: 12px;
+  align-items: baseline;
+  padding: 10px 16px 11px;
+  border-top: 1px solid var(--line);
+}
+
+.nutrition .row:first-child {
+  border-top: 0;
+}
+
+.nutrition .row.sub {
+  padding-left: 32px;
+}
+
+.nutrition .n {
+  font: 600 15px/1.35 var(--sans);
+}
+
+.nutrition .n a {
+  text-decoration: none;
+}
+
+.nutrition .n a:hover {
+  text-decoration: underline;
+}
+
+.nutrition .amt {
+  text-align: right;
+  font: 500 15px/1.35 var(--sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.nutrition .amt small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.nutrition .dv {
+  text-align: right;
+  font: 600 15px/1.35 var(--sans);
+  color: var(--food);
+  font-variant-numeric: tabular-nums;
+}
+
+.nutrition .limit .dv {
+  color: var(--muted);
+}
+
+.nutrition .bar {
+  grid-column: 1 / -1;
+  display: block;
+  height: 5px;
+  margin-top: 6px;
+  border-radius: 3px;
+  background: var(--pressed);
+  overflow: hidden;
+}
+
+.nutrition .bar b {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--shell-food);
+}
+
+.nutrition .limit .bar b {
+  background: var(--muted);
+}
+
+/* Nutrient tables link their foods now. */
+.foods td a {
+  text-decoration: none;
+}
+
+.foods td a:hover {
+  text-decoration: underline;
+}

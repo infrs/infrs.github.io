@@ -10,6 +10,7 @@
 
 - [All muscles](https://infrs.github.io/muscles/)
 - [All 1251 exercises, how to do each](https://infrs.github.io/exercises/)
+- [Nutrition facts for all 880 foods](https://infrs.github.io/foods/)
 - [Best chest exercises](https://infrs.github.io/muscles/chest.html)
 - [Best shoulders exercises](https://infrs.github.io/muscles/shoulders.html)
 - [Best biceps exercises](https://infrs.github.io/muscles/biceps.html)
